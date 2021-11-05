@@ -5,10 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 set(CMAKE_POLICY_DEFAULT_CMP0048 NEW)
 
-add_subdirectory(lib/sdsl-lite)
+include(${PROJECT_SOURCE_DIR}/thirdparty/sdsl-lite.cmake)
 
 add_library(${PROJECT_NAME} INTERFACE)
-target_link_libraries(${PROJECT_NAME} INTERFACE sdsl)
+target_link_libraries(${PROJECT_NAME} INTERFACE ${SDSL_LIBRARY})
 target_include_directories(${PROJECT_NAME} INTERFACE include)
 
 find_package(OpenMP)
