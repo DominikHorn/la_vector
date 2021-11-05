@@ -556,9 +556,9 @@ class la_vector<K, t_bpc, t_top_level>::segment : base_segment_type {
   explicit segment(position_type first)
       : base_segment_type(0, 0),
         first(first),
-        slope_significand(0),
+        intercept(std::numeric_limits<K>::max()),
         slope_exponent(0),
-        intercept(std::numeric_limits<K>::max()) {}
+        slope_significand(0) {}
 
   size_t get_correction_bit_offset(size_t n, size_t i) const {
     if constexpr (auto_bpc)
@@ -778,7 +778,7 @@ class bucketing_top_level {
     pos_top_level =
         sdsl::int_vector<>(top_level_size, n_segments, BIT_WIDTH(n_segments));
 
-    for (auto i = 0, j = 0, k = 0; i < top_level_size - 1; ++i) {
+    for (size_t i = 0, j = 0, k = 0; i < top_level_size - 1; ++i) {
       while (j < n_segments &&
              first[first_segment[j].first] < (i + 1) * val_step)
         ++j;
