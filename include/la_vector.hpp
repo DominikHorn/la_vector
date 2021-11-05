@@ -765,8 +765,8 @@ class bucketing_top_level {
   template <typename It>
   bucketing_top_level(It first, It last, t_segments_iterator first_segment,
                       t_segments_iterator last_segment) {
-    auto n_segments = std::distance(first_segment, last_segment);
-    auto n = std::distance(first, last);
+    size_t n_segments = std::distance(first_segment, last_segment);
+    size_t n = std::distance(first, last);
     auto u = *std::prev(last);
 
     segments_begin = first_segment;
