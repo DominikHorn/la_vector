@@ -16,8 +16,12 @@ if (OpenMP_CXX_FOUND)
     target_link_libraries(${PROJECT_NAME} INTERFACE OpenMP::OpenMP_CXX)
 endif ()
 
-add_executable(example example.cpp)
-target_link_libraries(example la_vector)
 
-enable_testing()
-add_subdirectory(test)
+get_directory_property(hasParent PARENT_DIRECTORY)
+if (NOT hasParent)
+  add_executable(example example.cpp)
+  target_link_libraries(example la_vector)
+
+  enable_testing()
+  add_subdirectory(test)
+endif()
