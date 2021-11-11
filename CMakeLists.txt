@@ -11,11 +11,12 @@ add_library(${PROJECT_NAME} INTERFACE)
 target_link_libraries(${PROJECT_NAME} INTERFACE ${SDSL_LIBRARY})
 target_include_directories(${PROJECT_NAME} INTERFACE include)
 
-find_package(OpenMP)
-if (OpenMP_CXX_FOUND)
-    target_link_libraries(${PROJECT_NAME} INTERFACE OpenMP::OpenMP_CXX)
-endif ()
-
+# Enable OpenMP if available
+include(CheckCXXCompilerFlag)
+check_cxx_compiler_flag(-fopenmp HAS_OPENMP)
+if (HAS_OPENMP AND NOT APPLE)
+  target_compile_options(${PROJECT_NAME} INTERFACE -fopenmp)
+endif()
 
 get_directory_property(hasParent PARENT_DIRECTORY)
 if (NOT hasParent)
