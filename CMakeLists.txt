@@ -18,6 +18,12 @@ if (HAS_OPENMP AND NOT APPLE)
   target_compile_options(${PROJECT_NAME} INTERFACE -fopenmp)
 endif()
 
+# Enable march=native if available
+check_cxx_compiler_flag(-march=native HAS_MARCH_NATIVE)
+if (HAS_MARCH_NATIVE)
+  target_compile_options(${PROJECT_NAME} INTERFACE -march=native)
+endif()
+
 get_directory_property(hasParent PARENT_DIRECTORY)
 if (NOT hasParent)
   add_executable(example example.cpp)
