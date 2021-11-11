@@ -515,7 +515,7 @@ class la_vector<K, t_bpc, t_top_level>::variable_bpc {
 };
 
 template <typename K, uint8_t t_bpc, template <class, class> class t_top_level>
-class la_vector<K, t_bpc, t_top_level>::segment : base_segment_type {
+class la_vector<K, t_bpc, t_top_level>::segment : public base_segment_type {
  public:
   using size_type = size_t;
   static constexpr auto exponent_bits = 5;
